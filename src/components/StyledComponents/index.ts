@@ -1,10 +1,13 @@
 import styled from 'styled-components';
 
-export const Div = styled.div``;
+
+export const Div = styled.div`
+`;
 
 export const Container = styled.div`
 max-width:1440px;
 margin:auto`;
+
 export const Table = styled.table`
     width: 100%;
     max-width: 100%;
@@ -12,6 +15,7 @@ export const Table = styled.table`
     background-color: transparent;
     border-collapse: collapse;
     text-align: center;
+    margin-top: 15px;
 `;
 
 export const THead = styled.thead`

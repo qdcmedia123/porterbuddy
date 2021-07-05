@@ -5,9 +5,11 @@ import reportWebVitals from './reportWebVitals';
 import { HashRouter as Router, Route} from 'react-router-dom';
 import ListCountries from './components/ListCountries';
 import Languages from './components/Languages';
-
+import GlobalStyle from './components/StyledComponents/GlobalStyle';
+import 'bootstrap/dist/css/bootstrap.min.css';
 ReactDOM.render(
   <React.StrictMode>
+    <GlobalStyle/>
     <Router basename = "/">
     <Route exact path = "/" component = { ListCountries }/>
     <Route exact path = "/languages" component = { Languages} />

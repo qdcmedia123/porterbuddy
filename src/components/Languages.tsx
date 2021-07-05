@@ -1,8 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { languages } from '../assets/languages';
-import { Table, Container, THead, Tr, Th, TBody} from './StyledComponents';
-import ListLanguages from './List/ListLanguages';
+import { Table, Container, THead, Tr, Th, TBody} from 'components/StyledComponents';
+import ListLanguages from 'components/List/ListLanguages';
+import Header  from 'components/Common/Header';
+import { GetTableData } from 'controllers/ListLanguageController';
+import Skeleton from 'react-loading-skeleton';
 
 const Languages: React.FC = () => {
     const [data, setData] = useState<object | null>(null);
@@ -12,36 +14,8 @@ const Languages: React.FC = () => {
         setLoading(true);
         try {
             const response = await axios.get('https://restcounTries.eu/rest/v2/all');
-            const countries = response.data.map((country: any) => {
-                const { name, languages, population } = country;
-
-                const getLan = languages.map((lng: any) => {
-                    return lng.iso639_1;
-                });
-                return { name, languages: getLan, population };
-            });
-
-            const mapLan = languages.map((language) => {
-                // Map countries
-                let countryArr:any = [];
-                let population:any = [];
-                 countries.map((country:any) => {
-                   if (country.languages.indexOf(language.alpha2) > -1) {
-                      countryArr.push(country.name);
-                      population.push(!isNaN(country.population) ? country.population : 0);
-                   }
-                   return countries;
-                });
-                const newData = {
-                   language: language.English,
-                   countries: countryArr,
-                   population,
-                };
-                return newData;
-                //return result.push(newData);
-             });
-
-            setData(mapLan);
+            const getTableData = GetTableData(response.data);
+            setData(getTableData);
             setLoading(false);
 
         } catch (err) {
@@ -51,13 +25,13 @@ const Languages: React.FC = () => {
 
     }, []);
 
-    console.log(data);
-
     useEffect(() => {
         getListCountries();
     }, [getListCountries])
     return (
-        <Container>
+        <>
+        <Header/>
+          <Container>
             {!loading && data && <Table>
                 <THead>
                     <Tr>
@@ -71,7 +45,12 @@ const Languages: React.FC = () => {
                      <ListLanguages rows={data} />
                 </TBody>
             </Table>}
+            
+            {loading && <Skeleton count = {30} />}
         </Container>
+    </>
+
+      
     );
 };
 
