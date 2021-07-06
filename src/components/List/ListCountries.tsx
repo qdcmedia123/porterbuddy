@@ -1,16 +1,11 @@
 import React from 'react';
+import { Tr, Td } from 'components/StyledComponents';
+import { row, ListCountries } from 'components/Interfaces';
 
-import { Tr, Td } from '../StyledComponents';
-
-interface ListCountries {
-    rows: any;
-}
 
 const ListCounTries: React.FC<ListCountries> = ({ rows }: ListCountries) => {
- 
     return (
-        // @ts-ignore
-        rows && rows?.map(row => <Tr key = {row.name}>
+        rows && rows?.map((row:row, index: number) => <Tr key = {index}>
             <Td>{row.name}</Td>
             <Td>{row.region}</Td>
             <Td>{Math.trunc(row.area)}</Td>

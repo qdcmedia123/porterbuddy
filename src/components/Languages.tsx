@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
-import { Table, Container, THead, Tr, Th, TBody} from 'components/StyledComponents';
+import { Table, Container, THead, Tr, Th, TBody } from 'components/StyledComponents';
 import ListLanguages from 'components/List/ListLanguages';
-import Header  from 'components/Common/Header';
+import Header from 'components/Common/Header';
 import { GetTableData } from 'controllers/ListLanguageController';
 import Skeleton from 'react-loading-skeleton';
 
@@ -30,30 +30,26 @@ const Languages: React.FC = () => {
     }, [getListCountries])
     return (
         <>
-        <Header/>
-          <Container>
-            {!loading && data && <Table>
-                <THead>
-                    <Tr>
-                        <Th >Language</Th>
-                        <Th>Country</Th>
-                        <Th >Population</Th>
-                    </Tr>
-                </THead>
-                <TBody>
-                   
-                     <ListLanguages rows={data} />
-                </TBody>
-            </Table>}
-            
-            {loading && <Skeleton count = {30} />}
-        </Container>
-    </>
+            <Header />
+            <Container>
+                {!loading && data && <Table>
+                    <THead>
+                        <Tr>
+                            <Th >Language</Th>
+                            <Th>Country</Th>
+                            <Th >Population</Th>
+                        </Tr>
+                    </THead>
+                    <TBody>
 
-      
+                        <ListLanguages rows={data} />
+                    </TBody>
+                </Table>}
+
+                {loading && <Skeleton count={30} />}
+            </Container>
+        </>
     );
 };
-
-
 
 export default Languages;

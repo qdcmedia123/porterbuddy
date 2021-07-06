@@ -8,18 +8,13 @@ import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 import { Pagination } from 'react-bootstrap';
 import Skeleton from 'react-loading-skeleton';
 import { getAveragePopulation, getLargestAndSmallest, sortByString, sortByNumber } from 'controllers/ListCountriesController';
+import { SortInterface, Countries } from 'components/Interfaces'
 
-type counTries = any;
 
-interface Sort {
-    name: boolean | null;
-    area: boolean | null;
-    population: boolean | null;
-}
 
 const ListCounTries = () => {
-    const [listCountries, setListCountries] = useState<counTries>(null);
-    const [sort, setSort] = useState<Sort>({ name: null, area: null, population: null })
+    const [listCountries, setListCountries] = useState<Countries[]>([]);
+    const [sort, setSort] = useState<SortInterface>({ name: null, area: null, population: null })
     const [loading, setLoading] = useState<boolean>(false);
     const [summary, setSummary] = useState<any>([]);
     const [averagePop, setAveragePopulation] = useState<null | number>(null);
@@ -55,7 +50,7 @@ const ListCounTries = () => {
     const fetchCounTries = useCallback(async () => {
         setLoading(true)
         try {
-            const response = await axios.get('https://restcounTries.eu/rest/v2/all');
+            const response = await axios.get<Countries[]>('https://restcounTries.eu/rest/v2/all');
             const pager = Math.ceil(response.data.length / limit);
             setPager(pager);
 
@@ -79,9 +74,9 @@ const ListCounTries = () => {
     }, [fetchCounTries]);
 
 
-    const sortByName = useCallback((sortBy: any, ns: string): void => {
+    const sortByName = useCallback((sortBy: string, ns: string): void => {
         let cloneCountreis = [...listCountries];
-        // @ts-ignore
+        
         const sortName = !sort[sortBy];
         setSort({ ...sort, [sortBy]: sortName });
 

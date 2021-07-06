@@ -1,15 +1,9 @@
 import React from 'react';
-import {Tr, Td} from '../StyledComponents';
+import {Tr, Td} from 'components/StyledComponents';
+import { row } from 'components/Interfaces';
 
 interface LanguagesProps {
     rows: object | any;
-}
-
-interface row {
-    language: string;
-    countries: any;
-    population: any;
-    name: string;
 }
 
 const ListLanguages:React.FC<LanguagesProps> = ({rows}: LanguagesProps) => {
