@@ -1,14 +1,26 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 import { Table, Container, THead, Tr, Th, TBody } from 'components/StyledComponents';
 import ListLanguages from 'components/List/ListLanguages';
 import Header from 'components/Common/Header';
 import { GetTableData } from 'controllers/ListLanguageController';
 import Skeleton from 'react-loading-skeleton';
+import {Countries } from 'components/Interfaces'
+import { Pagination } from 'react-bootstrap';
+import { languages } from 'assets/languages';
 
 const Languages: React.FC = () => {
-    const [data, setData] = useState<object | null>(null);
+    const [data, setData] = useState<Countries[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [pager, setPager] = useState<number | null>(null);
+    const [active, setActive] = useState<number>(1);
+    const [items, setItems] = useState<any>(null);
+    const limit: number = 20;
+
+   useEffect(() => {
+    const pager = Math.ceil(languages.length / limit);
+    setPager(pager);
+   }, [])
 
     const getListCountries = useCallback(async () => {
         setLoading(true);
@@ -25,6 +37,31 @@ const Languages: React.FC = () => {
 
     }, []);
 
+    const updatePage = useCallback((page: number) => {
+        setActive(page);
+    }, []);
+
+    useMemo(() => {
+        if (pager !== null) {
+            let items = [];
+            for (let number = 1; number <= pager; number++) {
+                items.push(
+                    <Pagination.Item key={number} active={number === active} onClick={() => updatePage(number)}>
+                        {number}
+                    </Pagination.Item>,
+                );
+            }
+            setItems(items);
+        }
+
+    }, [active, updatePage, pager])
+
+    const paginationBasic = useMemo(() => {
+        return <Pagination size="sm" >{items}</Pagination>;
+    }, [items]);
+
+
+
     useEffect(() => {
         getListCountries();
     }, [getListCountries])
@@ -32,7 +69,7 @@ const Languages: React.FC = () => {
         <>
             <Header />
             <Container>
-                {!loading && data && <Table>
+                {!loading && data && <><Table>
                     <THead>
                         <Tr>
                             <Th >Language</Th>
@@ -41,10 +78,11 @@ const Languages: React.FC = () => {
                         </Tr>
                     </THead>
                     <TBody>
-
-                        <ListLanguages rows={data} />
+                  
+                        <ListLanguages rows=  {data.slice(active === 1 ? 0 : (active - 1) * limit, limit * active)} />
                     </TBody>
-                </Table>}
+                </Table>
+                <div className = "jcc">{paginationBasic}</div></>}
 
                 {loading && <Skeleton count={30} />}
             </Container>

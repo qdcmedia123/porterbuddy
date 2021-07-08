@@ -2,3 +2,25 @@
   display: flex;
   justify-content: center;
 }
+
+.show__countries {
+  cursor: pointer;
+}
+.inner__countries {
+  width:auto; 
+  margin: auto;
+  top: calc(100vh / 2);
+ 
+  border: 1px solid #000000;
+  position: absolute;
+  display: none;
+  left: 25px;
+  right: 25px;
+  
+  z-index: 10;
+  background-color: #fff;
+}
+.show__countries:hover > .inner__countries{
+  display: flex;
+}
+

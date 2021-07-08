@@ -10,7 +10,9 @@ const ListLanguages:React.FC<LanguagesProps> = ({rows}: LanguagesProps) => {
     return (
         rows && rows?.map((row:row, index:number) => <Tr key = {index}>
             <Td>{row.language}</Td>
-            <Td>{row.countries.join(',')}</Td>
+            <Td className = "show__countries"> Details
+                <span className = "inner__countries"> {row.countries.join(',')}</span>
+                </Td>
             <Td>{row.population.length > 0 && row.population.reduce((a:any,b:any) => a + b)}</Td>
         </Tr>)
     );
