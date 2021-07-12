@@ -7,20 +7,43 @@
   cursor: pointer;
 }
 .inner__countries {
-  width:auto; 
+  background: #ffffff;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  width: auto;
   margin: auto;
   top: calc(100vh / 2);
- 
-  border: 1px solid #000000;
   position: absolute;
-  display: none;
-  left: 25px;
-  right: 25px;
-  
+  left: calc(50% - 285px / 2);
+  right: calc(50% - 285px / 2);
   z-index: 10;
   background-color: #fff;
-}
-.show__countries:hover > .inner__countries{
-  display: flex;
+  max-width: 300px;
+  height: auto;
+  overflow-wrap: break-word !important;
+  max-height: 500px;
+  overflow-y: scroll;
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.inner__countries ul li {
+  list-style: none;
+  text-align: left;
+  padding: 15px 15px;
+}
+
+.table__container {
+  min-height: calc(100vh - 118px);
+}
+
+.details-text {
+  cursor: pointer;
+}
+
+.background-shadow {
+  backdrop-filter: blur(10px);
+}

@@ -10,8 +10,6 @@ import Skeleton from 'react-loading-skeleton';
 import { getAveragePopulation, getLargestAndSmallest, sortByString, sortByNumber } from 'controllers/ListCountriesController';
 import { SortInterface, Countries } from 'components/Interfaces'
 
-
-
 const ListCounTries = () => {
     const [listCountries, setListCountries] = useState<Countries[]>([]);
     const [sort, setSort] = useState<SortInterface>({ name: null, area: null, population: null })
@@ -139,6 +137,5 @@ const ListCounTries = () => {
 
     );
 };
-
 
 export default ListCounTries;
