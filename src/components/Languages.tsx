@@ -72,7 +72,7 @@ const Languages: React.FC = () => {
     const getCountries = useMemo(() => {
         if (popUp) {
             if (countries && countries.length > 0) {
-                return <div className = "popup_wrapper" style = {{height: containerHeigh + 100}}><div className="inner__countries" ref={ref}>
+                return <div className="popup_wrapper" style={{ height: containerHeigh + 100 }}><div className="inner__countries" ref={ref}>
                     <ul>{countries.map((item: any, i: number) => <li key={i}>{item}</li>)}</ul>
                 </div></div>
             }
@@ -86,15 +86,13 @@ const Languages: React.FC = () => {
         }
     }, [loading]);
 
-    console.log(containerHeigh)
-
     return (
-        <>  
-            
-        {getCountries}
-           
+        <>
+
+            {getCountries}
+
             <Header />
-            <Container id = "container-11">
+            <Container id="container-11">
                 <div className="table__container">
                     {!loading && data && <><Table>
                         <THead>

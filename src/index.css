@@ -10,6 +10,14 @@ body {
   cursor: pointer;
 }
 
+.popup_wrapper, .inner__countries  {
+  z-index: 100;
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.5s;
+}
 .popup_wrapper {
   position: absolute;
   width: 100%;
@@ -33,6 +41,15 @@ body {
   overflow-wrap: break-word !important;
   max-height: 500px;
   overflow-y: auto;
+
+}
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 ul {
