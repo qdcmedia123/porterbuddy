@@ -2,7 +2,6 @@ import React from 'react';
 import { Tr, Td } from 'components/StyledComponents';
 import { row } from 'components/Interfaces';
 
-
 interface LanguagesProps {
     rows: object | any;
     setCountries: React.Dispatch<React.SetStateAction<object | null>>;

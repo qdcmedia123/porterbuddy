@@ -9,6 +9,7 @@ import { Countries } from 'components/Interfaces'
 import { Pagination } from 'react-bootstrap';
 import { languages } from 'assets/languages';
 import useOnClickOutside from "components/hooks/useOnClickOutside";
+import './listLanguages.css';
 
 const Languages: React.FC = () => {
     const ref = useRef<any>(null);
@@ -19,6 +20,7 @@ const Languages: React.FC = () => {
     const [items, setItems] = useState<any>(null);
     const [countries, setCountries] = useState<any>(null);
     const [popUp, setPopUp] = useState<boolean>(false);
+    const [containerHeigh, setContainerHeight] = useState<any>(100);
     const limit: number = 20;
 
     useOnClickOutside(ref, () => setPopUp(false));
@@ -70,18 +72,29 @@ const Languages: React.FC = () => {
     const getCountries = useMemo(() => {
         if (popUp) {
             if (countries && countries.length > 0) {
-                return <div className="inner__countries" ref={ref}>
+                return <div className = "popup_wrapper" style = {{height: containerHeigh + 100}}><div className="inner__countries" ref={ref}>
                     <ul>{countries.map((item: any, i: number) => <li key={i}>{item}</li>)}</ul>
-                </div>
+                </div></div>
             }
         }
-    }, [countries, popUp]);
+    }, [countries, popUp, containerHeigh]);
+
+    useEffect(() => {
+        if (!loading) {
+            const height = document.getElementById('container-11')?.clientHeight;
+            setContainerHeight(height)
+        }
+    }, [loading]);
+
+    console.log(containerHeigh)
 
     return (
-        <div className = "background-shadow">
-            {getCountries}
+        <>  
+            
+        {getCountries}
+           
             <Header />
-            <Container>
+            <Container id = "container-11">
                 <div className="table__container">
                     {!loading && data && <><Table>
                         <THead>
@@ -99,7 +112,7 @@ const Languages: React.FC = () => {
                 {!loading && data && <div className="jcc">{paginationBasic}</div>}
                 {loading && <Skeleton count={30} />}
             </Container>
-        </div>
+        </>
     );
 };
 export default Languages;

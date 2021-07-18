@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { Table, Container, THead, Tr, Th, TBody, Div } from './StyledComponents';
 import ListCountries from './List/ListCountries';
@@ -9,6 +9,7 @@ import { Pagination } from 'react-bootstrap';
 import Skeleton from 'react-loading-skeleton';
 import { getAveragePopulation, getLargestAndSmallest, sortByString, sortByNumber } from 'controllers/ListCountriesController';
 import { SortInterface, Countries } from 'components/Interfaces'
+import './listCountries.css';
 
 const ListCounTries = () => {
     const [listCountries, setListCountries] = useState<Countries[]>([]);
@@ -74,7 +75,7 @@ const ListCounTries = () => {
 
     const sortByName = useCallback((sortBy: string, ns: string): void => {
         let cloneCountreis = [...listCountries];
-        
+
         const sortName = !sort[sortBy];
         setSort({ ...sort, [sortBy]: sortName });
 
@@ -112,26 +113,37 @@ const ListCounTries = () => {
                     <div className="jcc">
                         {paginationBasic}
                     </div>
-                    <Div>
-                        <h1>Summary</h1>
-                        <h4>Country with smallest area</h4>
-                        <ul>
-                            <li>{summary && summary[0] && summary[0]['name'] + 'Area :' + summary[0]['area']}</li>
-                        </ul>
-                        <h4>Country with largest area</h4>
-                        <ul>
-                            <li>{summary && summary[1] && summary[1]['name'] + ' Area :' + summary[1]['area']}</li>
-                        </ul>
-                        <h4>Average population</h4>
-                        <ul>
-                            <li>{averagePop}</li>
-                        </ul>
-                    </Div>
+                    <div className="summary-container">
+                        <h2>Summary</h2>
+                        <div className = "col-container">
+                        <div>
+                            <h5 className="summary-head">Country with smallest area</h5>
+                            <ul>
+                                <li>{summary && summary[0] && summary[0]['name'] + 'Area :' + summary[0]['area']}</li>
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h5>Country with largest area</h5>
+                            <ul>
+                                <li>{summary && summary[1] && summary[1]['name'] + ' Area :' + summary[1]['area']}</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5>Average population</h5>
+                            <ul>
+                                <li>{averagePop}</li>
+                            </ul>
+                        </div>
+
+                        </div>
+                       
+                    </div>
 
                 </>
                 }
 
-                {loading && <Skeleton count = {30}/>}
+                {loading && <Skeleton count={30} />}
             </Container>
         </>
 

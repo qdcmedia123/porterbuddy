@@ -1,0 +1,16 @@
+.summary-container {
+    background-color: #fff;
+    padding: 25px 45px;
+}
+
+.summary-container ul li {
+    list-style: none;
+}
+
+
+
+.col-container {
+    margin-top: 25px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
